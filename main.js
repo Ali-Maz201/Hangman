@@ -23,7 +23,7 @@ function addLetters() {
 
 function verifyLetter(id) {
   let currentLetter = id.toLowerCase(), correctLetter = 0;
-  for (let i = 1, length = currentWord.length; i < length; ++i) {
+  for (let i = 1, length = selectedWord.length; i < length; ++i) {
     if (words[randomWord][i] == currentLetter) {
       selectedWord.splice(i, 1, '' + currentLetter + '');
       correctLetter = 1;
@@ -32,7 +32,7 @@ function verifyLetter(id) {
   if(correctLetter == 0) {
     --wrongTries;
   }
-  $('#word').text(''+ currentWord + '');
+  $('#word').text(''+ selectedWord + '');
   let letterRemoval = document.getElementById(id);
   letterRemoval.style.display = "none";
   gameStatus();
@@ -48,7 +48,7 @@ function gameStatus() {
     }, 5000);
   }
   for (let i = 0, length = selectedWord.length; i < length; ++i) {
-    if(currentWord[i] == "_") {
+    if(selectedWord[i] == "_") {
       won = 0;
     }
   }
