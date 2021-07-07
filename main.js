@@ -43,9 +43,7 @@ function gameStatus() {
   if (wrongTries == 0) {
     message.innerHTML = "You lost, try again :)";
     message.style.color = "red";
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 5000);
+    restartGame();
   }
   for (let i = 0, length = selectedWord.length; i < length; ++i) {
     if(selectedWord[i] == "_") {
@@ -55,8 +53,11 @@ function gameStatus() {
   if (won == 1) {
     message.innerHTML = "Congratulations you rock !";
     message.style.color = "green";
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 5000);
+    restartGame();
   }
+}
+function restartGame() {
+  setTimeout(function(){
+     window.location.reload(1);
+  }, 2500);
 }
