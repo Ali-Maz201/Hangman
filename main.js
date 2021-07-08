@@ -1,15 +1,15 @@
-var words =["apple", "dinosaur", "water", "wine", "beer", "kiwi"], selectedWord = [], randomWord, wrongTries = 5;
+var foundLetter = [], wrongTries = 5, selectedWord;
 
 function startGame() {
-  randomWord = Math.floor(Math.random() * words.length);
-  for(let i = 0, length = words[randomWord].length; i < length; ++i) {
+  selectedWord = document.getElementById("word").value;
+  for(let i = 0; i < selectedWord.length; ++i) {
     let currentLetter = "_";
-    if (i == 0 || i + 1 == length) {
-      currentLetter = words[randomWord][i];
+    if (i == 0 || i + 1 == selectedWord.length) {
+      currentLetter = selectedWord[i];
     }
-    selectedWord.push(''+ currentLetter  +'');
+    foundLetter.push(''+ currentLetter  +'');
   }
-  $('#word').text(''+ selectedWord + '');
+  $('#showWord').text(''+ foundLetter + '');
   addLetters();
   document.getElementById('beggin').style.display = "none";
   return false;
@@ -23,16 +23,16 @@ function addLetters() {
 
 function verifyLetter(id) {
   let currentLetter = id.toLowerCase(), correctLetter = 0;
-  for (let i = 1, length = selectedWord.length; i < length; ++i) {
-    if (words[randomWord][i] == currentLetter) {
-      selectedWord.splice(i, 1, '' + currentLetter + '');
+  for (let i = 1; i < foundLetter.length; ++i) {
+    if (selectedWord[i] == currentLetter) {
+      foundLetter.splice(i, 1, '' + currentLetter + '');
       correctLetter = 1;
     }
   }
   if(correctLetter == 0) {
     --wrongTries;
   }
-  $('#word').text(''+ selectedWord + '');
+  $('#showWord').text(''+ foundLetter + '');
   let letterRemoval = document.getElementById(id);
   letterRemoval.style.display = "none";
   gameStatus();
@@ -45,8 +45,8 @@ function gameStatus() {
     message.style.color = "red";
     restartGame();
   }
-  for (let i = 0, length = selectedWord.length; i < length; ++i) {
-    if(selectedWord[i] == "_") {
+  for (let i = 0; i < foundLetter.length; ++i) {
+    if(foundLetter[i] == "_") {
       won = 0;
     }
   }
@@ -56,6 +56,7 @@ function gameStatus() {
     restartGame();
   }
 }
+
 function restartGame() {
   setTimeout(function(){
      window.location.reload(1);
